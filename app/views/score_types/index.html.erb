@@ -1,0 +1,27 @@
+<h1>Listing score_types</h1>
+
+<table>
+  <tr>
+    <th>Competition</th>
+    <th>Name</th>
+    <th>Logic</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @score_types.each do |score_type| %>
+  <tr>
+    <td><%= score_type.competition_id %></td>
+    <td><%= score_type.name %></td>
+    <td><%= score_type.logic %></td>
+    <td><%= link_to 'Show', score_type %></td>
+    <td><%= link_to 'Edit', edit_score_type_path(score_type) %></td>
+    <td><%= link_to 'Destroy', score_type, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Score type', new_score_type_path %>

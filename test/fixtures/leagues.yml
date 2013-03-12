@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  type: 
+  games_per_set: 1
+  sets_per_match: 1
+  competition_id: 1
+
+two:
+  name: MyString
+  type: 
+  games_per_set: 1
+  sets_per_match: 1
+  competition_id: 1

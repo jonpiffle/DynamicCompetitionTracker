@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @league.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @league.type %>
+</p>
+
+<p>
+  <b>Games per set:</b>
+  <%= @league.games_per_set %>
+</p>
+
+<p>
+  <b>Sets per match:</b>
+  <%= @league.sets_per_match %>
+</p>
+
+<p>
+  <b>Competition:</b>
+  <%= @league.competition_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_league_path(@league) %> |
+<%= link_to 'Back', leagues_path %>

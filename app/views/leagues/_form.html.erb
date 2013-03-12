@@ -1,0 +1,37 @@
+<%= form_for(@league) do |f| %>
+  <% if @league.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@league.errors.count, "error") %> prohibited this league from being saved:</h2>
+
+      <ul>
+      <% @league.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :league_type %><br />
+    <%= f.text_field :league_type %>
+  </div>
+  <div class="field">
+    <%= f.label :games_per_set %><br />
+    <%= f.number_field :games_per_set %>
+  </div>
+  <div class="field">
+    <%= f.label :sets_per_match %><br />
+    <%= f.number_field :sets_per_match %>
+  </div>
+  <div class="field">
+    <%= f.label :competition_id %><br />
+    <%= f.number_field :competition_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<h1>Listing game_sets</h1>
+
+<table>
+  <tr>
+    <th>Winner</th>
+    <th>Loser</th>
+    <th>Match</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @game_sets.each do |game_set| %>
+  <tr>
+    <td><%= game_set.winner_id %></td>
+    <td><%= game_set.loser_id %></td>
+    <td><%= game_set.match_id %></td>
+    <td><%= link_to 'Show', game_set %></td>
+    <td><%= link_to 'Edit', edit_game_set_path(game_set) %></td>
+    <td><%= link_to 'Destroy', game_set, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Game set', new_game_set_path %>

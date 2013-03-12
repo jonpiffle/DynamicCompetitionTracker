@@ -1,0 +1,27 @@
+<h1>Listing plays_ins</h1>
+
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Team</th>
+    <th>Won</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @plays_ins.each do |plays_in| %>
+  <tr>
+    <td><%= plays_in.game_id %></td>
+    <td><%= plays_in.team_id %></td>
+    <td><%= plays_in.won %></td>
+    <td><%= link_to 'Show', plays_in %></td>
+    <td><%= link_to 'Edit', edit_plays_in_path(plays_in) %></td>
+    <td><%= link_to 'Destroy', plays_in, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Plays in', new_plays_in_path %>
