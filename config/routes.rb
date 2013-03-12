@@ -1,4 +1,26 @@
 Eecs341::Application.routes.draw do
+  resources :score_types
+
+  resources :scores
+
+  resources :plays_ins
+
+  resources :games
+
+  resources :game_sets
+
+  resources :matches
+
+  resources :players
+
+  resources :teams
+
+  resources :sessions
+
+  resources :competitions
+
+  resources :leagues
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
