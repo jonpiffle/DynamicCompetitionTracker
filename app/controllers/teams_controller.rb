@@ -25,6 +25,8 @@ class TeamsController < ApplicationController
   # GET /teams/new.json
   def new
     @team = Team.new
+    @registration = @team.registrations.build
+    @players = Player.all
 
     respond_to do |format|
       format.html # new.html.erb

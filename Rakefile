@@ -4,7 +4,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-require 'tasks/standalone_migrations'
 ActiveRecord::Base.schema_format = :sql
 
 Eecs341::Application.load_tasks
