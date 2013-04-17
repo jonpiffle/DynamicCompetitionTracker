@@ -14,6 +14,8 @@ class PlayersController < ApplicationController
   # GET /players/1.json
   def show
     @player = Player.find(params[:id])
+		@teams=@player.teams
+		@leagues=@teams.collect(&:leagues)
 
     respond_to do |format|
       format.html # show.html.erb

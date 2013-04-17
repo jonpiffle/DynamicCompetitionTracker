@@ -24,5 +24,25 @@
 </table>
 </p><br>
 
+<p>
+<b>Leagues the team is in:</b>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Rating</th>
+		</tr>
+	</thead>
+	<tbody>
+				<%@leagues.each do |league|%>
+				<tr>
+					<td><%=league.name%></td>
+					<td><%=@team.rating(league)%></td>
+				</tr>
+			<%end%>
+	</tbody>
+</table>
+</p><br>
+
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

@@ -17,7 +17,7 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find(params[:id])
     @players = @team.players
-
+    @leagues = @team.leagues
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @team }
