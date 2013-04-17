@@ -1,10 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @team.name %>
-</p>
+<h3>Team Name: <%= @team.name %></h3>
 
+<p>
+<b>Players:</b>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Username</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%@players.each do |player|%>
+		<tr>
+			<td><%=player.name%></td>
+			<td><%=player.username%></td>
+			<td><%=link_to 'Show', player_path(player)%> | <%=link_to "Remove", remove_player_path(:id => @team.id, :player_id => player.id)%> </td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+</p><br>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

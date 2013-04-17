@@ -1,8 +1,10 @@
 class TeamsController < ApplicationController
+  autocomplete :player, :name, :display_value => :name_username, :extra_data => [:username]
+
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.includes(:players).where("name NOT NULL")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +16,7 @@ class TeamsController < ApplicationController
   # GET /teams/1.json
   def show
     @team = Team.find(params[:id])
+    @players = @team.players
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,12 +24,18 @@ class TeamsController < ApplicationController
     end
   end
 
+  def remove_player
+    @team = Team.find(params[:id])
+    @team.players.delete(Player.find(params[:player_id]))
+    respond_to do |format|
+      format.html { redirect_to @team, :notice => 'Player was successfully removed from team' }
+    end
+  end
+
   # GET /teams/new
   # GET /teams/new.json
   def new
     @team = Team.new
-    @registration = @team.registrations.build
-    @players = Player.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,12 +46,17 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @team = Team.find(params[:id])
+    @players = @team.players
   end
 
   # POST /teams
   # POST /teams.json
   def create
     @team = Team.new(params[:team])
+
+    @team.players_names.split(", ").each do |p|
+      @team.players << Player.find_by_username(p.scan(/\((.*?)\)/))
+    end
 
     respond_to do |format|
       if @team.save
@@ -59,6 +73,10 @@ class TeamsController < ApplicationController
   # PUT /teams/1.json
   def update
     @team = Team.find(params[:id])
+
+    params[:team][:players_names].split(", ").each do |p|
+      @team.players << Player.find_by_username(p.scan(/\((.*?)\)/))
+    end
 
     respond_to do |format|
       if @team.update_attributes(params[:team])

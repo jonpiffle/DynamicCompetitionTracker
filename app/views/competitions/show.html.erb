@@ -5,6 +5,34 @@
   <%= @competition.name %>
 </p>
 
+<b>Listing score_types</b>
 
+<table>
+  <tr>
+    <th>Competition</th>
+    <th>Name</th>
+    <th>Mandatory</th>
+    <th>How is this game scored?</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @score_types.each do |score_type| %>
+  <tr>
+    <td><%= score_type.competition_id %></td>
+    <td><%= score_type.name %></td>
+    <td><%= score_type.mandatory ? "Yes" : "No" %></td>
+    <td><%= score_type.high_scored ? "High is better" : "Low is better" %></td>
+    <td><%= link_to 'Show', competition_score_type_path(:competition_id => @competition.id, :id => score_type.id) %></td>
+    <td><%= link_to 'Edit', edit_competition_score_type_path(:competition_id => @competition.id, :id => score_type.id) %></td>
+    <td><%= link_to 'Destroy', competition_score_type_path(:competition_id => @competition.id, :id => score_type.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Add Score Type', new_competition_score_type_path(@competition) %> |
 <%= link_to 'Edit', edit_competition_path(@competition) %> |
 <%= link_to 'Back', competitions_path %>

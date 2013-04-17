@@ -12,9 +12,15 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :players_names, "Add Players" %><br />
+    <%= f.autocomplete_field :players_names, autocomplete_player_name_teams_path, 'data-delimiter' => ', ', :multiple => false %>
+  </div>
+
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

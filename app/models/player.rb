@@ -7,4 +7,8 @@ class Player < ActiveRecord::Base
   def create_one_player_team
   	self.teams.create
   end
+
+  def name_username
+  	"#{name}(#{username})"
+  end
 end

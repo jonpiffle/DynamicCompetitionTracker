@@ -2,7 +2,8 @@ class ScoreTypesController < ApplicationController
   # GET /score_types
   # GET /score_types.json
   def index
-    @score_types = ScoreType.all
+    @competition = Competition.find(params[:competition_id])
+    @score_types = @competition.score_types
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,6 +14,7 @@ class ScoreTypesController < ApplicationController
   # GET /score_types/1
   # GET /score_types/1.json
   def show
+    @competition = Competition.find(params[:competition_id])
     @score_type = ScoreType.find(params[:id])
 
     respond_to do |format|
@@ -24,7 +26,8 @@ class ScoreTypesController < ApplicationController
   # GET /score_types/new
   # GET /score_types/new.json
   def new
-    @score_type = ScoreType.new
+    @competition = Competition.find(params[:competition_id])
+    @score_type = @competition.score_types.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +37,19 @@ class ScoreTypesController < ApplicationController
 
   # GET /score_types/1/edit
   def edit
+    @competition = Competition.find(params[:competition_id])
     @score_type = ScoreType.find(params[:id])
   end
 
   # POST /score_types
   # POST /score_types.json
   def create
-    @score_type = ScoreType.new(params[:score_type])
+    @competition = Competition.find(params[:competition_id])
+    @score_type = @competition.score_types.build(params[:score_type])
 
     respond_to do |format|
       if @score_type.save
-        format.html { redirect_to @score_type, :notice => 'Score type was successfully created.' }
+        format.html { redirect_to competition_score_type_path(@competition, @score_type), :notice => 'Score type was successfully created.' }
         format.json { render :json => @score_type, :status => :created, :location => @score_type }
       else
         format.html { render :action => "new" }
@@ -56,11 +61,12 @@ class ScoreTypesController < ApplicationController
   # PUT /score_types/1
   # PUT /score_types/1.json
   def update
+    @competition = Competition.find(params[:competition_id])
     @score_type = ScoreType.find(params[:id])
 
     respond_to do |format|
       if @score_type.update_attributes(params[:score_type])
-        format.html { redirect_to @score_type, :notice => 'Score type was successfully updated.' }
+        format.html { redirect_to competition_score_type_path(:competition_id => @competition.id, :id => @score_type.id), :notice => 'Score type was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -72,11 +78,12 @@ class ScoreTypesController < ApplicationController
   # DELETE /score_types/1
   # DELETE /score_types/1.json
   def destroy
+    @competition = Competition.find(params[:competition_id])
     @score_type = ScoreType.find(params[:id])
     @score_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to score_types_url }
+      format.html { redirect_to @competition }
       format.json { head :no_content }
     end
   end

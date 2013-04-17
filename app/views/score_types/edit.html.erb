@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @score_type %> |
-<%= link_to 'Back', score_types_path %>
+<%= link_to 'Show', competition_score_type_path(:competition_id => @competition.id, :id => @score_type.id) %> |
+<%= link_to 'Back', @competition%>

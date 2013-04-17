@@ -14,6 +14,7 @@ class CompetitionsController < ApplicationController
   # GET /competitions/1.json
   def show
     @competition = Competition.find(params[:id])
+    @score_types = @competition.score_types
 
     respond_to do |format|
       format.html # show.html.erb

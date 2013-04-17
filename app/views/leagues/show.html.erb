@@ -25,6 +25,26 @@
   <%= @league.competition_id %>
 </p>
 
+<p>
+<b>Teams:</b>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@teams.each do |team|%>
+    <tr>
+      <td><%=team.name%></td>
+      <td><%=link_to 'Show', team_path(team)%> </td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+</p><br>
 
+<%= link_to 'Add Teams To League', add_teams_league_path(@league) %> |
 <%= link_to 'Edit', edit_league_path(@league) %> |
 <%= link_to 'Back', leagues_path %>

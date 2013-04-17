@@ -11,10 +11,14 @@
 </p>
 
 <p>
-  <b>Logic:</b>
-  <%= @score_type.logic %>
+  <b>Mandatory:</b>
+  <%= @score_type.mandatory ? "Yes" : "No" %>
 </p>
 
+<p>
+  <b>How is this game scored?</b>
+  <%= @score_type.high_scored ? "High is better" : "Low is better" %>
+</p>
 
-<%= link_to 'Edit', edit_score_type_path(@score_type) %> |
-<%= link_to 'Back', score_types_path %>
+<%= link_to 'Edit', edit_competition_score_type_path(:competition_id => @competition.id, :id => @score_type.id) %> |
+<%= link_to 'Back', @competition %>

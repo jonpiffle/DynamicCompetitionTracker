@@ -1,4 +1,12 @@
 class SessionsController < ApplicationController
+  autocomplete :team, :name
+
+  def get_autocomplete_items(parameters)
+    @league = League.find(params[:league_id])
+    puts parameters
+    @league.teams.where("name LIKE '%#{parameters[:term]}%'")
+  end
+
   # GET /sessions
   # GET /sessions.json
   def index
@@ -24,7 +32,8 @@ class SessionsController < ApplicationController
   # GET /sessions/new
   # GET /sessions/new.json
   def new
-    @session = Session.new
+    @league = League.find(params[:league_id])
+    @session = @league.sessions.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +49,12 @@ class SessionsController < ApplicationController
   # POST /sessions
   # POST /sessions.json
   def create
-    @session = Session.new(params[:session])
+    @league = League.find(params[:league_id])
+    @session = @league.sessions.build(params[:session])
 
     respond_to do |format|
       if @session.save
-        format.html { redirect_to @session, :notice => 'Session was successfully created.' }
+        format.html { redirect_to league_session_path(:league_id => @league.id, :session_id => @session.id), :notice => 'Session was successfully created.' }
         format.json { render :json => @session, :status => :created, :location => @session }
       else
         format.html { render :action => "new" }

@@ -12,9 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :league_id %><br />
-    <%= f.number_field :league_id %>
+    <%= f.label :teams_names, "Add Teams" %><br />
+    <%= f.autocomplete_field :teams_names, autocomplete_team_name_league_sessions_path, 'data-delimiter' => ', ', :multiple => false %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

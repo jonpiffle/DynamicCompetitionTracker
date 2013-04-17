@@ -1,4 +1,6 @@
 class LeaguesController < ApplicationController
+  autocomplete :team, :name
+
   # GET /leagues
   # GET /leagues.json
   def index
@@ -14,6 +16,7 @@ class LeaguesController < ApplicationController
   # GET /leagues/1.json
   def show
     @league = League.find(params[:id])
+    @teams = @league.teams
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +28,7 @@ class LeaguesController < ApplicationController
   # GET /leagues/new.json
   def new
     @league = League.new
+    @competitions = Competition.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +39,7 @@ class LeaguesController < ApplicationController
   # GET /leagues/1/edit
   def edit
     @league = League.find(params[:id])
+    @competitions = Competition.all
   end
 
   # POST /leagues
@@ -66,6 +71,24 @@ class LeaguesController < ApplicationController
         format.html { render :action => "edit" }
         format.json { render :json => @league.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+  def add_teams
+    @league = League.find(params[:id])
+    @teams = @league.teams
+  end
+
+  def save_teams
+    @league = League.find(params[:id])
+
+    params[:league][:teams_names].split(", ").each do |t|
+      puts t
+      @league.registrations.create(:team_id => Team.find_by_name(t).id)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @league, :notice => 'Teams were succesfully added.' }
     end
   end
 

@@ -1,25 +1,35 @@
 Eecs341::Application.routes.draw do
-  resources :score_types
+
+  resources :teams do
+    get :autocomplete_player_name, :on => :collection
+  end
+
+  match "teams/:id/remove_player/:player_id" => 'teams#remove_player', :as => :remove_player
+
 
   resources :scores
 
   resources :plays_ins
 
-  resources :games
-
-  resources :game_sets
-
-  resources :matches
-
   resources :players
 
-  resources :teams
+  resources :competitions do
+    resources :score_types, :on => :collection
+  end
 
-  resources :sessions
-
-  resources :competitions
-
-  resources :leagues
+  resources :leagues do
+    get :autocomplete_team_name, :on => :collection
+    get :add_teams, :on => :member
+    put :save_teams, :on => :member 
+    resources :sessions, :shallow => true do
+      get :autocomplete_team_name, :on => :collection
+      resources :matches, :shallow => true do
+        resources :game_sets, :shallow => true do
+          resources :games
+        end
+      end
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

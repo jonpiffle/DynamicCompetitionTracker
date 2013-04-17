@@ -53,6 +53,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.5.0)
+    nifty-generators (0.4.6)
     polyglot (0.3.3)
     rack (1.4.4)
     rack-cache (1.2)
@@ -70,6 +71,8 @@ GEM
       activesupport (= 3.2.6)
       bundler (~> 1.0)
       railties (= 3.2.6)
+    rails3-jquery-autocomplete (1.0.11)
+      rails (~> 3.0)
     railties (3.2.6)
       actionpack (= 3.2.6)
       activesupport (= 3.2.6)
@@ -107,8 +110,10 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   json
+  nifty-generators
   railroad
   rails (= 3.2.6)
+  rails3-jquery-autocomplete
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)

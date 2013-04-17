@@ -1,4 +1,4 @@
-<%= form_for(@score_type) do |f| %>
+<%= form_for([@competition, @score_type]) do |f| %>
   <% if @score_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@score_type.errors.count, "error") %> prohibited this score_type from being saved:</h2>
@@ -12,17 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :competition_id %><br />
-    <%= f.number_field :competition_id %>
-  </div>
-  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :logic %><br />
-    <%= f.text_field :logic %>
+    <%= f.label :mandatory %><br />
+    <%= f.check_box :mandatory %>
   </div>
+  <div class="field">
+    <%= f.label :high_scored, "How is this scored?" %><br />
+    High is better<%= f.radio_button :high_scored, true%>
+    Low is better<%= f.radio_button :high_scored, false%>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

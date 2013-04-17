@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :league_type %><br />
-    <%= f.text_field :league_type %>
+    <%= f.select :league_type, ["Structured", "Unstructured"] %>
   </div>
   <div class="field">
     <%= f.label :games_per_set %><br />
@@ -28,8 +28,8 @@
     <%= f.number_field :sets_per_match %>
   </div>
   <div class="field">
-    <%= f.label :competition_id %><br />
-    <%= f.number_field :competition_id %>
+    <%= f.label :competition_id, "Competition" %><br />
+    <%= f.collection_select(:competition_id, @competitions, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

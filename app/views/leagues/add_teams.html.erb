@@ -1,0 +1,41 @@
+<p>
+<b>Teams:</b>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@teams.each do |team|%>
+    <tr>
+      <td><%=team.name%></td>
+      <td><%=link_to 'Show', team_path(team)%> </td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+</p><br>
+
+<%= form_for(@league, :url => save_teams_league_path(@league)) do |f| %>
+  <% if @league.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@league.errors.count, "error") %> prohibited this league from being saved:</h2>
+
+      <ul>
+      <% @league.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :teams_names, "Add Teams" %><br />
+    <%= f.autocomplete_field :teams_names, autocomplete_team_name_leagues_path, 'data-delimiter' => ', ', :multiple => false %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
