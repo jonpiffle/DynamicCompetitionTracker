@@ -1,0 +1,24 @@
+<h1>Listing hangouts</h1>
+
+<table>
+  <tr>
+    <th>League</th>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hangouts.each do |hangout| %>
+  <tr>
+    <td><%= hangout.league.name %></td>
+    <td><%= hangout.created_at %></td>
+    <td><%= link_to "Show", league_hangout_path(:league_id => @league.id, :id => hangout.id) %> </td>
+    <td><%= link_to "Edit", edit_league_hangout_path(:league_id => @league.id, :id => hangout.id) %> </td>
+    <td><%= link_to "Destroy", league_hangout_path(:league_id => @league.id, :id => hangout.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %> </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= link_to "New", new_league_hangout_path(:league_id => @league.id) %>

@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(:version => 20130312200704) do
     t.integer  "plays_in_id"
   end
 
-  create_table "sessions", :force => true do |t|
+  create_table "hangouts", :force => true do |t|
     t.integer  "league_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

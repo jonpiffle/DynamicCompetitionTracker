@@ -1,0 +1,22 @@
+<%= form_for [@league, @hangout] do |f| %>
+  <% if @hangout.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hangout.errors.count, "error") %> prohibited this hangout from being saved:</h2>
+
+      <ul>
+      <% @hangout.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :teams_names, "Add Teams" %><br />
+    <%= f.autocomplete_field :teams_names, autocomplete_team_name_league_hangouts_path, 'data-delimiter' => ', ', :multiple => false %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

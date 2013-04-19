@@ -24,7 +24,16 @@ class GamesController < ApplicationController
   # GET /games/new
   # GET /games/new.json
   def new
-    @game = Game.new
+    @game_set = GameSet.find(params[:game_set_id])
+    @game = @game_set.games.build
+    @league = @game_set.league
+    @teams = @league.teams
+    
+    @p1 = @game.plays_ins.build
+    @p2 = @game.plays_ins.build
+
+    @p1.build_scores(@league)
+    @p2.build_scores(@league)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +43,16 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+    @game_set = GameSet.find(params[:game_set_id])
     @game = Game.find(params[:id])
   end
 
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(params[:game])
+    @game_set = GameSet.find(params[:game_set_id])
+    @game =  @game_set.games.build(params[:game])
+
 
     respond_to do |format|
       if @game.save

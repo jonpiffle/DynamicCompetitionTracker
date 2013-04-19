@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>League:</b>
+  <%= @hangout.league.name %>
+</p>
+
+<p>
+<b>Teams:</b>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@teams.each do |team|%>
+    <tr>
+      <td><%=team.name%></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+</p><br>
+
+<%= link_to 'Edit', edit_league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
+<%= link_to 'Back', league_hangouts_path(:league_id => @league.id) %>
+

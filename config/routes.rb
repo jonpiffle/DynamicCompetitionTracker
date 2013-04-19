@@ -21,10 +21,12 @@ Eecs341::Application.routes.draw do
     get :autocomplete_team_name, :on => :collection
     get :add_teams, :on => :member
     put :save_teams, :on => :member 
-    resources :sessions, :shallow => true do
+    get :starting_point, :on => :member
+    resources :hangouts do
+      get :starting_point, :on => :member
       get :autocomplete_team_name, :on => :collection
       resources :matches, :shallow => true do
-        resources :game_sets, :shallow => true do
+        resources :game_sets, :shallow => true do 
           resources :games
         end
       end
