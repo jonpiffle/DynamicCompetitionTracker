@@ -186,7 +186,7 @@ The default directory structure of a generated Ruby on Rails application:
   |-- tmp
   |   |-- cache
   |   |-- pids
-  |   |-- sessions
+  |   |-- hangouts
   |   `-- sockets
   `-- vendor
       |-- assets

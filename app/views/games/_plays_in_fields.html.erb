@@ -1,0 +1,12 @@
+  <div class="field">
+    <%= f.label :team_id, "Select Team" %><br />
+    <%= f.collection_select(:team_id, @teams, :id, :name) %>
+  </div>
+  <div class="field">
+    <%= f.label :won %><br />
+    <%= f.check_box :won %>
+  </div>
+
+  <%= f.fields_for :scores do |builder| %>
+  	<%= render "plays_in_score_fields", :f => builder %>
+  <%end%>

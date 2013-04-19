@@ -4,6 +4,7 @@
   <tr>
     <th>Competition</th>
     <th>Name</th>
+    <th>Primary</th>
     <th>Mandatory</th>
     <th>How is this game scored?</th>
     <th></th>
@@ -15,6 +16,7 @@
   <tr>
     <td><%= score_type.competition_id %></td>
     <td><%= score_type.name %></td>
+    <td><%= score_type.primary ? "Yes" : "No" %></td>
     <td><%= score_type.mandatory ? "Yes" : "No" %></td>
     <td><%= score_type.high_scored ? "High is better" : "Low is better" %></td>
     <td><%= link_to 'Show', competition_score_type_path(:competition_id => @competition.id, :id => score_type.id) %></td>

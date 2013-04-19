@@ -1,0 +1,24 @@
+<h1>Editing hangout</h1>
+
+<p>
+<b>Teams:</b>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@teams.each do |team|%>
+    <tr>
+      <td><%=team.name%></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+</p><br>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
+<%= link_to 'Back', league_hangouts_path(:league_id => @league.id) %>

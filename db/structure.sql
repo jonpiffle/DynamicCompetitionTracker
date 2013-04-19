@@ -1,16 +1,15 @@
 CREATE TABLE "competitions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "game_sets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "winner_id" integer, "loser_id" integer, "match_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "games" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "game_set_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+CREATE TABLE "hangouts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "league_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+CREATE TABLE "hangouts_teams" ("hangout_id" integer, "team_id" integer);
 CREATE TABLE "leagues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "league_type" varchar(255), "games_per_set" integer, "sets_per_match" integer, "competition_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "matches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "winner_id" integer, "loser_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "session_id" integer);
+CREATE TABLE "matches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "winner_id" integer, "loser_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "hangout_id" integer);
 CREATE TABLE "players" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "username" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "players_teams" ("team_id" integer, "player_id" integer);
 CREATE TABLE "plays_ins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "game_id" integer, "team_id" integer, "won" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "registrations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "league_id" integer, "team_id" integer, "rating" decimal);
 CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL);
-CREATE TABLE "score_types" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "competition_id" integer, "name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "mandatory" boolean, "high_scored" boolean);
-CREATE TABLE "scores" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "score_type_id" integer, "plays_in_id" integer, "score_value" double, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "sessions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "league_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "teams" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
 INSERT INTO schema_migrations (version) VALUES ('20130308013513');
@@ -52,3 +51,11 @@ INSERT INTO schema_migrations (version) VALUES ('20130410182913');
 INSERT INTO schema_migrations (version) VALUES ('20130411032100');
 
 INSERT INTO schema_migrations (version) VALUES ('20130416024901');
+
+INSERT INTO schema_migrations (version) VALUES ('20130417005129');
+
+INSERT INTO schema_migrations (version) VALUES ('20130417021804');
+
+INSERT INTO schema_migrations (version) VALUES ('20130417023530');
+
+INSERT INTO schema_migrations (version) VALUES ('20130418011152');

@@ -3,6 +3,7 @@ class Team < ActiveRecord::Base
   has_and_belongs_to_many :players
   has_many :registrations
   has_many :leagues, :through => :registrations
+  has_and_belongs_to_many :hangouts
   has_many :plays_ins
   has_many :games, :through => :plays_ins
   has_many :scores, :through => :plays_ins

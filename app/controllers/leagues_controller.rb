@@ -1,6 +1,19 @@
 class LeaguesController < ApplicationController
   autocomplete :team, :name
 
+  #if structured, build session automatically and go to game/set/match screen
+  #if unstructured, go to game set/match/screen
+  def starting_point
+    @league = League.find(params[:id])
+
+    if @league.structured
+      h = @league.hangouts.create
+      redirect_to starting_point_league_hangout_path(:league_id => @league.id, :id => h.id)
+    else
+      redirect_to new_league_hangouts_path(:league_id => @league.id)
+    end
+  end
+
   # GET /leagues
   # GET /leagues.json
   def index
