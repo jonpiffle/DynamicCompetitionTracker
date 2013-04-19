@@ -10,6 +10,28 @@
   <%= @player.username %>
 </p>
 
+<p>
+	<b>League players is in:</b>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Rating</th>
+			</tr>
+	</th>
+	<tbody>
+		<%@teams.each do |team|%>
+			<%team.leagues.each do |league|%>
+				<tr>
+					<td><%=league.name%></td>
+					<td><%=team.rating(league)%></td>
+				</tr>
+			<%end%>
+		<%end%>
+	</tbody>
+</table>
+</p></br>
+	
 
-<%= link_to 'Edit', edit_player_path(@player) %> |
+<%= link_to 'Edit', edit_player_path(@player) %> 
 <%= link_to 'Back', players_path %>

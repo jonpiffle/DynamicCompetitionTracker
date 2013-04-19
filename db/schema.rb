@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312200704) do
+ActiveRecord::Schema.define(:version => 20130410005013) do
 
   create_table "competitions", :force => true do |t|
     t.string   "name"
@@ -42,11 +42,6 @@ ActiveRecord::Schema.define(:version => 20130312200704) do
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "leagues_teams", :id => false, :force => true do |t|
-    t.integer "league_id"
-    t.integer "team_id"
-  end
-
   create_table "matches", :force => true do |t|
     t.integer  "winner_id"
     t.integer  "loser_id"
@@ -61,12 +56,25 @@ ActiveRecord::Schema.define(:version => 20130312200704) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "players_teams", :id => false, :force => true do |t|
+    t.integer "team_id"
+    t.integer "player_id"
+  end
+
   create_table "plays_ins", :force => true do |t|
     t.integer  "game_id"
     t.integer  "team_id"
     t.boolean  "won"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "registrations", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "league_id"
+    t.integer  "team_id"
+    t.integer  "rating"
   end
 
   create_table "score_types", :force => true do |t|
@@ -79,10 +87,10 @@ ActiveRecord::Schema.define(:version => 20130312200704) do
 
   create_table "scores", :force => true do |t|
     t.integer  "score_type_id"
+    t.integer  "plays_in_id"
     t.string   "score_value"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.integer  "plays_in_id"
   end
 
   create_table "hangouts", :force => true do |t|
@@ -92,15 +100,9 @@ ActiveRecord::Schema.define(:version => 20130312200704) do
   end
 
   create_table "teams", :force => true do |t|
-    t.integer  "rating"
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "teams_players", :id => false, :force => true do |t|
-    t.integer "team_id"
-    t.integer "player_id"
   end
 
 end

@@ -4,6 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ActiveRecord::Base.schema_format = :sql
-
 Eecs341::Application.load_tasks

@@ -10,8 +10,6 @@ CREATE TABLE "players_teams" ("team_id" integer, "player_id" integer);
 CREATE TABLE "plays_ins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "game_id" integer, "team_id" integer, "won" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "registrations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "league_id" integer, "team_id" integer, "rating" decimal);
 CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL);
-CREATE TABLE "score_types" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "competition_id" integer, "name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "mandatory" boolean, "high_scored" boolean, "primary" boolean);
-CREATE TABLE "scores" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "score_type_id" integer, "score_value" double, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "plays_in_id" integer);
 CREATE TABLE "teams" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
 INSERT INTO schema_migrations (version) VALUES ('20130308013513');
@@ -39,8 +37,6 @@ INSERT INTO schema_migrations (version) VALUES ('20130312194730');
 INSERT INTO schema_migrations (version) VALUES ('20130312194823');
 
 INSERT INTO schema_migrations (version) VALUES ('20130312194835');
-
-INSERT INTO schema_migrations (version) VALUES ('20130312200704');
 
 INSERT INTO schema_migrations (version) VALUES ('20130410002051');
 
