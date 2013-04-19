@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410005013) do
+ActiveRecord::Schema.define(:version => 20130418011152) do
 
   create_table "competitions", :force => true do |t|
     t.string   "name"
@@ -32,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20130410005013) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "hangouts", :force => true do |t|
+    t.integer  "league_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "hangouts_teams", :id => false, :force => true do |t|
+    t.integer "hangout_id"
+    t.integer "team_id"
+  end
+
   create_table "leagues", :force => true do |t|
     t.string   "name"
     t.string   "league_type"
@@ -47,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20130410005013) do
     t.integer  "loser_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "hangout_id"
   end
 
   create_table "players", :force => true do |t|
@@ -74,29 +87,25 @@ ActiveRecord::Schema.define(:version => 20130410005013) do
     t.datetime "updated_at", :null => false
     t.integer  "league_id"
     t.integer  "team_id"
-    t.integer  "rating"
+    t.decimal  "rating"
   end
 
   create_table "score_types", :force => true do |t|
     t.integer  "competition_id"
     t.string   "name"
-    t.string   "logic"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.boolean  "mandatory"
+    t.boolean  "high_scored"
+    t.boolean  "primary"
   end
 
   create_table "scores", :force => true do |t|
     t.integer  "score_type_id"
     t.integer  "plays_in_id"
-    t.string   "score_value"
+    t.float    "score_value"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-  end
-
-  create_table "hangouts", :force => true do |t|
-    t.integer  "league_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "teams", :force => true do |t|
