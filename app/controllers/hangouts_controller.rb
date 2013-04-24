@@ -14,12 +14,14 @@ class HangoutsController < ApplicationController
       m = @hangout.matches.create
       if @league.games_per_set == 1
         g = m.game_sets.create
-        redirect_to new_game_set_game_path(:game_set_id => g)
+        redirect_to new_game_set_game_path(:game_set_id => g.id)
       else
+        g = m.game_sets.create
         redirect_to edit_match_game_set_path(:match_id => m.id, :id => g.id)
       end
     else
-        redirect_to edit_hangout_match_path(:hangout_id => @hangout.id, :id => m.id)
+        m = @hangout.matches.create
+        redirect_to edit_match_path(:id => m.id)
     end
   end
 

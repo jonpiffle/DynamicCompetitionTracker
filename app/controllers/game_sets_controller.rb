@@ -1,4 +1,5 @@
 class GameSetsController < ApplicationController
+
   # GET /game_sets
   # GET /game_sets.json
   def index
@@ -25,6 +26,8 @@ class GameSetsController < ApplicationController
   # GET /game_sets/new.json
   def new
     @game_set = GameSet.new
+    @match = @game_set.match
+    @games = @game_set.games
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +38,8 @@ class GameSetsController < ApplicationController
   # GET /game_sets/1/edit
   def edit
     @game_set = GameSet.find(params[:id])
+    @match = @game_set.match
+    @games = @game_set.games
   end
 
   # POST /game_sets

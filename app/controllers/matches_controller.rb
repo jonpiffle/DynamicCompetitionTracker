@@ -1,6 +1,16 @@
 class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
+
+  def create_and_redirect
+    @match = Match.find(params[:id])
+    @game_set = @match.game_sets.create
+
+    respond_to do |format|
+      format.html { redirect_to edit_game_set_path(:id => @game_set.id) }
+    end
+  end
+
   def index
     @matches = Match.all
 
@@ -35,6 +45,7 @@ class MatchesController < ApplicationController
   # GET /matches/1/edit
   def edit
     @match = Match.find(params[:id])
+    @game_sets = @match.game_sets
   end
 
   # POST /matches

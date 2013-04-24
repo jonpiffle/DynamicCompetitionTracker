@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
   has_many :teams, :through => :plays_ins
   has_many :scores, :through => :plays_ins
 
+
   accepts_nested_attributes_for :plays_ins
 
   after_create :update_teams_ratings
