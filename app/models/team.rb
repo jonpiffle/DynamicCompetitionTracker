@@ -7,6 +7,8 @@ class Team < ActiveRecord::Base
   has_many :plays_ins
   has_many :games, :through => :plays_ins
   has_many :scores, :through => :plays_ins
+	
+  validates :name, :uniqueness => true, :presence => true
 
   attr_accessor :players_names, :players_ids
 

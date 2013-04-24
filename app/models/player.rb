@@ -4,6 +4,8 @@ class Player < ActiveRecord::Base
 
   after_create :create_one_player_team 
   
+  validates :username, :uniqueness => true, :presence => true
+
   def create_one_player_team
   	self.teams.create
   end
