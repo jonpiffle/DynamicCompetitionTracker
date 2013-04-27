@@ -4,11 +4,11 @@
 		end
 
 		def avg
-			self.inject(:+)/self.size
+			self.compact.inject(:+)/self.compact.size
 		end
 
 		def std_dev
-			self.map{|r| r - self.avg}.map(&:squared).avg.sqrt
+			self.compact.map{|r| r - self.avg}.map(&:squared).avg.sqrt
 		end
 	end
 

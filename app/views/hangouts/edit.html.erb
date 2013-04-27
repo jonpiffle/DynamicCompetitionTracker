@@ -20,5 +20,6 @@
 
 <%= render 'form' %>
 
+<%= link_to 'New Game', starting_point_league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
 <%= link_to 'Show', league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
 <%= link_to 'Back', league_hangouts_path(:league_id => @league.id) %>

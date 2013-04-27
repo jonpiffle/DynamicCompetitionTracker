@@ -28,11 +28,11 @@ class PlaysIn < ActiveRecord::Base
   end
 
   def delta_rating
-  	25*(actual_score-team.expected_score(opponent, league)) + bonus
+    25*(actual_score-team.expected_score(opponent, league)) + bonus
   end
 
   def bonus
-    5*scores.collect(&:z_score).avg
+    scores.collect(&:z_score).compact.size == 0 ? 0 : 5*scores.collect(&:z_score).compact.avg 
   end
 
   def update_team_rating
