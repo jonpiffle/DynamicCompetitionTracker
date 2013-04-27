@@ -6,4 +6,11 @@ class GameSet < ActiveRecord::Base
   has_one :league, :through => :hangout
   belongs_to :loser, :class_name => "Team"
   belongs_to :winner, :class_name => "Team"
+
+  def set_winner
+  	if games.count > (league.games_per_set/2)
+  		winner = Hash[*games.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}.first
+  		loser = Hash[*games.group_by(&:loser).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}.first
+  	end
+  end
 end

@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+
   # GET /games
   # GET /games.json
   def index
@@ -52,11 +53,13 @@ class GamesController < ApplicationController
   def create
     @game_set = GameSet.find(params[:game_set_id])
     @game =  @game_set.games.build(params[:game])
-
+    @match = @game_set.match
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, :notice => 'Game was successfully created.' }
+        #game.check_if_set_over
+        #game.check_if_match_over
+        format.html { redirect_to edit_game_set_path(@game_set), :notice => 'Game was successfully created.' }
         format.json { render :json => @game, :status => :created, :location => @game }
       else
         format.html { render :action => "new" }

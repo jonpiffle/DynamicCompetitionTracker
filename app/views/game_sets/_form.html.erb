@@ -24,8 +24,8 @@
   <tbody>
         <%@games.each do |game|%>
         <tr>
-          <td><%=game.winner%></td>
-          <td><%=game.loser%></td>
+          <td><%=game.winner.name%></td>
+          <td><%=game.loser.name%></td>
         </tr>
       <%end%>
   </tbody>
