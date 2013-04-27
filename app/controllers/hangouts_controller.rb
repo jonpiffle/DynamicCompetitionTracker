@@ -57,6 +57,7 @@ class HangoutsController < ApplicationController
     @hangout = Hangout.find(params[:id])
     @league = @hangout.league
     @teams = @hangout.teams
+    @matches = @hangout.matches
   end
 
   # POST /hangouts
