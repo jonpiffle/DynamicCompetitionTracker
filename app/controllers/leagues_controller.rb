@@ -10,7 +10,7 @@ class LeaguesController < ApplicationController
       h = @league.hangouts.create
       redirect_to starting_point_league_hangout_path(:league_id => @league.id, :id => h.id)
     else
-      redirect_to new_league_hangouts_path(:league_id => @league.id)
+      redirect_to new_league_hangout_path(:league_id => @league.id)
     end
   end
 

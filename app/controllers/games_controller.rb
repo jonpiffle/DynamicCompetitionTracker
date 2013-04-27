@@ -54,16 +54,26 @@ class GamesController < ApplicationController
     @game_set = GameSet.find(params[:game_set_id])
     @game =  @game_set.games.build(params[:game])
     @match = @game_set.match
+    @hangout = @match.hangout
+    @league = @hangout.league
 
     respond_to do |format|
       if @game.save
-        #game.check_if_set_over
-        #game.check_if_match_over
-        format.html { redirect_to edit_game_set_path(@game_set), :notice => 'Game was successfully created.' }
-        format.json { render :json => @game, :status => :created, :location => @game }
+        if @game_set.set_winner
+          if @match.set_winner
+            if @league.structured
+              format.html { redirect_to @league, :notice => "#{@game.winner.name} won!"}
+            else
+              format.html { redirect_to edit_league_hangout_path(:league_id => @league.id, :id => @hangout), :notice => "#{@game.winner.name} won!"}
+            end
+          else
+            format.html { redirect_to edit_match_path(@match), :notice => "#{@game.winner.name} won the set!"}
+          end
+        else
+          format.html { redirect_to edit_game_set_path(@game_set), :notice => "#{@game.winner.name} won the game!"}
+        end
       else
         format.html { render :action => "new" }
-        format.json { render :json => @game.errors, :status => :unprocessable_entity }
       end
     end
   end
