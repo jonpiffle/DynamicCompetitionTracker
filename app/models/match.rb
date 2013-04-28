@@ -10,7 +10,7 @@ class Match < ActiveRecord::Base
   scope :finished, where('winner_id NOT NULL AND loser_id NOT NULL')
 
   def set_winner
-  	if game_sets.group_by(&:winner).map {|k,v| [k, v.length]}.flatten![1] > (league.sets_per_match/2)
+    if Hash[*game_sets.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}[1] > (league.sets_per_match/2)
   		winner = Hash[*game_sets.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}.first
   		loser = Hash[*game_sets.group_by(&:loser).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}.first
 		self.update_attributes(:winner_id => winner.id, :loser_id => loser.id)

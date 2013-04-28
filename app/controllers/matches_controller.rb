@@ -7,7 +7,7 @@ class MatchesController < ApplicationController
     @game_set = @match.game_sets.create
 
     respond_to do |format|
-      format.html { redirect_to edit_game_set_path(:id => @game_set.id) }
+      format.html { redirect_to new_game_set_game_path(:game_set_id => @game_set.id) }
     end
   end
 

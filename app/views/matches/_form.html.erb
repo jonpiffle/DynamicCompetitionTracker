@@ -24,8 +24,8 @@
   <tbody>
         <%@game_sets.each do |set|%>
         <tr>
-          <td><%=set.winner%></td>
-          <td><%=set.loser%></td>
+          <td><%=set.winner.name%></td>
+          <td><%=set.loser.name%></td>
           <td><%=set.games.count%></td>
         </tr>
       <%end%>
@@ -33,6 +33,6 @@
 </table>
 </p><br>
 
-<%=link_to "New Set", create_and_redirect_match_path(:match_id => @match.id) %>
+<%=link_to "New Set", create_and_redirect_match_path(:id => @match.id), :class => "btn btn-primary" %>
 
 <% end %>

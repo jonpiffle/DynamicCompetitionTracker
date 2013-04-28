@@ -97,9 +97,9 @@ class GamesController < ApplicationController
         if @game_set.set_winner
           if @match.set_winner
             if @league.structured
-              format.html { redirect_to @league, :notice => "#{@game.winner.name} won!"}
+              format.html { redirect_to @league, :notice => "#{@game.winner.name} beat #{@game.loser.name}!"}
             else
-              format.html { redirect_to edit_league_hangout_path(:league_id => @league.id, :id => @hangout), :notice => "#{@game.winner.name} won!"}
+              format.html { redirect_to edit_league_hangout_path(:league_id => @league.id, :id => @hangout), :notice => "#{@game.winner.name} beat #{@game.loser.name}!"}
             end
           else
             format.html { redirect_to edit_match_path(@match), :notice => "#{@game.winner.name} won the set!"}
