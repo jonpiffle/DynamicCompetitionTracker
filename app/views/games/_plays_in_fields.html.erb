@@ -2,11 +2,15 @@
 <%if @league.structured%>
     <%= f.label :team_id, "Select Team" %><br />
     <%= f.collection_select(:team_id, @teams, :id, :name) %>
+<%elsif @match.in_progress%>
+  <%= f.label :player_names, "Players on Team:" %><br />
+  <%= team.name %>
+  <%= f.hidden_field :team_id %>
 <%else%>
     <%= f.label :player_names, "Select Players on Team" %><br />
-    <%= f.collection_select(:player_names, team, :name, :name, {:selected => team.first.name}, {:multiple => true})%>
+    <%= f.collection_select(:player_names, @teams, :name, :name, {}, {:multiple => true})%>
 <%end%>
-</div>
+</div><br>
 
   <div class="field">
     <%= f.label :won %>

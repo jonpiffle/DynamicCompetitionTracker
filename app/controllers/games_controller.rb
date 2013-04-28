@@ -32,15 +32,19 @@ class GamesController < ApplicationController
     @league = @match.league
     @teams = @league.structured ? @league.teams : @hangout.teams
     
+    @p1 = @game.plays_ins.build
+    @p2 = @game.plays_ins.build
+
     if @match.in_progress
-      @team1 = @match.games.first.plays_ins.last.team.players.map(&:solo)
-      @team2 = @match.games.first.plays_ins.first.team.players.map(&:solo)
+      @team1 = @match.games.first.plays_ins.last.team
+      @team2 = @match.games.first.plays_ins.first.team
+
+      @p1.team_id = @team1.id
+      @p2.team_id = @team2.id
     else
       @team1 = @team2 = @teams
     end
 
-    @p1 = @game.plays_ins.build
-    @p2 = @game.plays_ins.build
 
     @p1.build_scores(@league)
     @p2.build_scores(@league)
@@ -66,19 +70,23 @@ class GamesController < ApplicationController
     @hangout = @match.hangout
     @league = @hangout.league
 
-    if !@league.structured
+    if !@league.structured && !@match.in_progress
       @game.plays_ins.each do |pi|
         team_name = pi.player_names.reject(&:blank?).sort.join(" & ")
 
-        if t = Team.find_by_name(team_name)
+        if Team.find_by_name(team_name).present?
+          puts 'a'
+          t = Team.find_by_name(team_name)
           pi.team_id = t.id
+          t.registrations.create(:league_id => @league.id) if t.registration(@league).nil?
         else
+          puts 'b'
           t = Team.create(:name => team_name)
-          pi.player_names.split(", ").each do |p|
+          pi.player_names.reject(&:blank?).sort.each do |p|
             t.players << Player.find_by_username(p.scan(/\((.*?)\)/))
           end
           pi.team_id = t.id
-          @league.registrations.create(:team_id => t.id)
+          t.registrations.create(:league_id => @league.id)
         end
       end
     end
