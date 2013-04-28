@@ -1,6 +1,6 @@
 require 'statistics'
 class PlaysIn < ActiveRecord::Base
-  attr_accessible :game_id, :team_id, :won, :scores_attributes
+  attr_accessible :game_id, :team_id, :won, :scores_attributes, :player_names
   belongs_to :game
   has_one :game_set, :through => :game
   has_one :match, :through => :game_set
@@ -10,6 +10,7 @@ class PlaysIn < ActiveRecord::Base
   has_many :scores
 
   accepts_nested_attributes_for :scores
+  attr_accessor :player_names
 
   def opponent
   	game.teams.where("team_id <> ?", team.id).first

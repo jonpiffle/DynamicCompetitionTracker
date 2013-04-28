@@ -11,16 +11,21 @@
     </div>
   <% end %>
 
-  <h3>Team 1</h3>
-  <%=f.fields_for :plays_ins, @p1 do |builder|%>
-    <%= render 'plays_in_fields', :f => builder %>
-  <%end%>
+<div class="row">
+  <div class="span6"><br>
+    <h3>Team 1</h3>
+    <%=f.fields_for :plays_ins, @p1 do |builder|%>
+      <%= render 'plays_in_fields', :f => builder, :team => @team1 %>
+    <%end%>
+  </div>
 
-  <h3>Team 2</h3>
-  <%=f.fields_for :plays_ins, @p2 do |builder|%>
-    <%= render 'plays_in_fields', :f => builder %>
-  <%end%>
-
+  <div class="span6"><br>
+    <h3>Team 2</h3>
+    <%=f.fields_for :plays_ins, @p2 do |builder|%>
+      <%= render 'plays_in_fields', :f => builder, :team => @team2 %>
+    <%end%>
+  </div>
+</div>
   <div class="actions">
     <%= f.submit %>
   </div>

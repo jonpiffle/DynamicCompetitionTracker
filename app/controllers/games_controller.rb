@@ -26,10 +26,19 @@ class GamesController < ApplicationController
   # GET /games/new.json
   def new
     @game_set = GameSet.find(params[:game_set_id])
+    @match = @game_set.match
     @game = @game_set.games.build
-    @league = @game_set.league
-    @teams = @league.teams
+    @hangout = @match.hangout
+    @league = @match.league
+    @teams = @league.structured ? @league.teams : @hangout.teams
     
+    if @match.in_progress
+      @team1 = @match.games.first.plays_ins.last.team.players.map(&:solo)
+      @team2 = @match.games.first.plays_ins.first.team.players.map(&:solo)
+    else
+      @team1 = @team2 = @teams
+    end
+
     @p1 = @game.plays_ins.build
     @p2 = @game.plays_ins.build
 
@@ -56,6 +65,24 @@ class GamesController < ApplicationController
     @match = @game_set.match
     @hangout = @match.hangout
     @league = @hangout.league
+
+    if !@league.structured
+      @game.plays_ins.each do |pi|
+        team_name = pi.player_names.reject(&:blank?).sort.join(" & ")
+
+        if t = Team.find_by_name(team_name)
+          pi.team_id = t.id
+        else
+          t = Team.create(:name => team_name)
+          pi.player_names.split(", ").each do |p|
+            t.players << Player.find_by_username(p.scan(/\((.*?)\)/))
+          end
+          pi.team_id = t.id
+          @league.registrations.create(:team_id => t.id)
+        end
+      end
+    end
+
 
     respond_to do |format|
       if @game.save

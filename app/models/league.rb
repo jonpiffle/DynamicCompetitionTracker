@@ -1,6 +1,6 @@
 require 'statistics'
 class League < ActiveRecord::Base
-  attr_accessible :competition_id, :games_per_set, :name, :sets_per_match, :league_type, :teams_names
+  attr_accessible :competition_id, :games_per_set, :name, :sets_per_match, :league_type, :teams_names, :player_names
   belongs_to :competition
   has_many :score_types, :through => :competition
   has_many :registrations
@@ -11,6 +11,7 @@ class League < ActiveRecord::Base
   has_many :games, :through => :game_sets
   
   attr_accessor :teams_names
+  attr_accessor :player_names
 
   def structured
   	league_type == "Structured"

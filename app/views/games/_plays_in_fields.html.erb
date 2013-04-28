@@ -1,9 +1,15 @@
-  <div class="field">
+<div class="field">
+<%if @league.structured%>
     <%= f.label :team_id, "Select Team" %><br />
     <%= f.collection_select(:team_id, @teams, :id, :name) %>
-  </div>
+<%else%>
+    <%= f.label :player_names, "Select Players on Team" %><br />
+    <%= f.collection_select(:player_names, team, :name, :name, {:selected => team.first.name}, {:multiple => true})%>
+<%end%>
+</div>
+
   <div class="field">
-    <%= f.label :won %><br />
+    <%= f.label :won %>
     <%= f.check_box :won %>
   </div>
 

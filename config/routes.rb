@@ -9,7 +9,9 @@ Eecs341::Application.routes.draw do
 
   resources :scores
 
-  resources :plays_ins
+  resources :plays_ins do
+    get :autocomplete_player_name, :on => :collection
+  end
 
   resources :players
 
@@ -19,6 +21,7 @@ Eecs341::Application.routes.draw do
 
   resources :leagues do
     get :autocomplete_team_name, :on => :collection
+    get :autocomplete_player_name, :on => :collection
     get :add_teams, :on => :member
     put :save_teams, :on => :member 
     get :starting_point, :on => :member

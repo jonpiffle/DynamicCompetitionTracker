@@ -1,16 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @league.name %>
-</p>
+  <h3><%= @league.name %></h3>
 
 <p>
 <b>Teams:</b>
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Rankings</th>
+      <th>Ranking</th>
       <th>Name</th>
       <th>Rating</th>      
     </tr>
@@ -27,7 +24,8 @@
 </table>
 </p><br>
 
-<%= link_to 'New Game', starting_point_league_path(@league) %> |
-<%= link_to 'Add Teams To League', add_teams_league_path(@league) %> |
-<%= link_to 'Edit', edit_league_path(@league) %> |
+<%= link_to 'Add Teams To League', add_teams_league_path(@league), :class => "btn"%> 
+<%= link_to 'New Game', starting_point_league_path(@league), :class => "btn btn-primary"%> 
+
+<br><br><%= link_to 'Edit', edit_league_path(@league) %> |
 <%= link_to 'Back', leagues_path %>

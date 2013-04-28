@@ -1,6 +1,6 @@
 <p>
 <b>Teams:</b>
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -31,10 +31,22 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :teams_names, "Add Teams" %><br />
-    <%= f.autocomplete_field :teams_names, autocomplete_team_name_leagues_path, 'data-delimiter' => ', ', :multiple => false %>
-  </div>
+  <%if @league.structured%>
+
+    <div class="field">
+      <%= f.label :teams_names, "Add Teams" %><br />
+      <%= f.autocomplete_field :teams_names, autocomplete_team_name_leagues_path, 'data-delimiter' => ', ', :multiple => false %>
+    </div>
+
+  <%else%>
+
+    <div class="field">
+      <%= f.label :player_names, "Add Players" %><br />
+      <%= f.autocomplete_field :player_names, autocomplete_player_name_leagues_path, 'data-delimiter' => ', ', :multiple => false %>
+    </div>
+
+  <%end%>
+
   <div class="actions">
     <%= f.submit %>
   </div>

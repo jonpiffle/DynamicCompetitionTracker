@@ -1,5 +1,6 @@
 class LeaguesController < ApplicationController
   autocomplete :team, :name
+  autocomplete :player, :name, :display_value => :name_username, :extra_data => [:username]
 
   #if structured, build session automatically and go to game/set/match screen
   #if unstructured, go to game set/match/screen
@@ -95,11 +96,15 @@ class LeaguesController < ApplicationController
   def save_teams
     @league = League.find(params[:id])
 
-    params[:league][:teams_names].split(", ").each do |t|
-      puts t
-      @league.registrations.create(:team_id => Team.find_by_name(t).id)
+    if @league.structured
+      params[:league][:teams_names].split(", ").each do |t|
+        @league.registrations.create(:team_id => Team.find_by_name(t).id)
+      end
+    else
+      params[:league][:player_names].split(", ").each do |t|
+        @league.registrations.create(:team_id => Team.find_by_name(t).id)
+      end
     end
-
     respond_to do |format|
       format.html { redirect_to @league, :notice => 'Teams were succesfully added.' }
     end
