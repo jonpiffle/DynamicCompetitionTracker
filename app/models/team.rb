@@ -23,4 +23,8 @@ class Team < ActiveRecord::Base
   def expected_score(opponent, league)
   	1.0 / (1.0 + 10.0**((opponent.rating(league) - self.rating(league))/400.0))
   end
+
+  def self.find_solo_by_username(u)
+    Player.find_by_username(u).solo_team
+  end
 end

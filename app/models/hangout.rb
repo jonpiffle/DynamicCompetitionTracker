@@ -4,5 +4,5 @@ class Hangout < ActiveRecord::Base
   has_and_belongs_to_many :teams
   has_many :matches
 
-  attr_accessor :teams_names
+  attr_accessor :player_names
 end

@@ -1,10 +1,5 @@
 class HangoutsController < ApplicationController
-  autocomplete :team, :name
-
-  def get_autocomplete_items(parameters)
-    @league = League.find(params[:league_id])
-    @league.teams.where("name LIKE '%#{parameters[:term]}%'")
-  end
+  autocomplete :player, :name, :display_value => :name_username, :extra_data => [:username]
 
   def starting_point
     @league = League.find(params[:league_id])

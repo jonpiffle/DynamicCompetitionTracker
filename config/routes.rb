@@ -24,7 +24,7 @@ Eecs341::Application.routes.draw do
     get :starting_point, :on => :member
     resources :hangouts do
       get :starting_point, :on => :member
-      get :autocomplete_team_name, :on => :collection
+      get :autocomplete_player_name, :on => :collection
       resources :matches, :shallow => true do
         get :create_and_redirect, :on => :member
         resources :game_sets, :shallow => true do 

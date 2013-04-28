@@ -1,13 +1,14 @@
 class Player < ActiveRecord::Base
-  attr_accessible :name, :username
+  attr_accessible :name, :username, :solo_id
   has_and_belongs_to_many :teams
+  belongs_to :solo, :class_name => :team
 
-  after_create :create_one_player_team 
+  after_create :create_solo 
   
   validates :username, :uniqueness => true, :presence => true
 
-  def create_one_player_team
-  	self.teams.create
+  def create_solo
+  	self.solo.create
   end
 
   def name_username
