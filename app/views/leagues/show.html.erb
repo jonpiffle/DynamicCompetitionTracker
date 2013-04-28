@@ -6,39 +6,21 @@
 </p>
 
 <p>
-  <b>Type:</b>
-  <%= @league.league_type %>
-</p>
-
-<p>
-  <b>Games per set:</b>
-  <%= @league.games_per_set %>
-</p>
-
-<p>
-  <b>Sets per match:</b>
-  <%= @league.sets_per_match %>
-</p>
-
-<p>
-  <b>Competition:</b>
-  <%= @league.competition_id %>
-</p>
-
-<p>
 <b>Teams:</b>
 <table>
   <thead>
     <tr>
+      <th>Rankings</th>
       <th>Name</th>
-      <th>Actions</th>
+      <th>Rating</th>      
     </tr>
   </thead>
   <tbody>
-    <%@teams.each do |team|%>
+    <%@teams.order('rating desc').each_with_index do |team, i|%>
     <tr>
-      <td><%=team.name%></td>
-      <td><%=link_to 'Show', team_path(team)%> </td>
+      <td><%=i + 1%></td>
+      <td><%=link_to team.name, team_path(team)%> </td>
+      <td><%=team.rating(@league)%></td>
     </tr>
     <%end%>
   </tbody>
