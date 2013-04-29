@@ -8,6 +8,7 @@ class Match < ActiveRecord::Base
   belongs_to :winner, :class_name => "Team"
 
   scope :finished, where('winner_id NOT NULL AND loser_id NOT NULL')
+  scope :recent, order("created_at desc").limit(10)
 
   def set_winner
     if Hash[*game_sets.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}[1] > (league.sets_per_match/2)
