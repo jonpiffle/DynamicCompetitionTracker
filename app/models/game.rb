@@ -27,4 +27,8 @@ class Game < ActiveRecord::Base
  def loser
 	losers.first
  end
+
+ def check_only_one
+    
+ end
 end

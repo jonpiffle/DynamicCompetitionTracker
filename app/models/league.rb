@@ -9,9 +9,11 @@ class League < ActiveRecord::Base
   has_many :matches, :through => :hangouts
   has_many :game_sets, :through => :matches
   has_many :games, :through => :game_sets
-  
-  attr_accessor :teams_names
 
+  validates :name, :uniqueness => true, :presence => true
+
+  attr_accessor :teams_names
+  
   def structured
   	league_type == "Structured"
   end

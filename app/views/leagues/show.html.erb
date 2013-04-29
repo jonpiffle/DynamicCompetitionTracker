@@ -20,12 +20,32 @@
     <tr>
       <td><%=i + 1%></td>
       <td><%=link_to team.name, team_path(team)%> </td>
-      <td><%=team.rating(@league)%></td>
+      <td><%=team.rating(@league).round%></td>
     </tr>
     <%end%>
   </tbody>
 </table>
 </p><br>
+
+<p>
+<b>Recent Matches Played:</b> <br>
+<table>
+  <thead>
+	<tr>
+	   <th>Winner</th>
+	   <th>Loser</th>
+	</tr>
+  </thead>
+  <tbody>
+  <%@league.matches.last(10).reverse.each do |m| %>	
+    <tr>
+     <td><%=m.winner%></td>
+     <td><%=m.loser%></td>
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+</p>
 
 <%= link_to 'New Game', starting_point_league_path(@league) %> |
 <%= link_to 'Add Teams To League', add_teams_league_path(@league) %> |
