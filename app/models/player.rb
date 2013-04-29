@@ -8,7 +8,8 @@ class Player < ActiveRecord::Base
   validates :username, :uniqueness => true, :presence => true
 
   def create_solo
-  	self.solo.create(:team_name => "#{name}(#{username})")
+    t = Team.create(:name => "#{name}(#{username})")
+  	self.update_attributes(:solo_id => t.id)
   end
 
   def name_username
