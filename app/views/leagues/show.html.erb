@@ -1,53 +1,65 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @league.name %>
-</p>
+  <h3><%= @league.name %></h3>
 
-<p>
-<b>Teams:</b>
-<table>
-  <thead>
-    <tr>
-      <th>Rankings</th>
-      <th>Name</th>
-      <th>Rating</th>      
-    </tr>
-  </thead>
-  <tbody>
-    <%@teams.order('rating desc').each_with_index do |team, i|%>
-    <tr>
-      <td><%=i + 1%></td>
-      <td><%=link_to team.name, team_path(team)%> </td>
-      <td><%=team.rating(@league).round%></td>
-    </tr>
-    <%end%>
-  </tbody>
-</table>
-</p><br>
+<div class="row">
+  <div class="span6">
+    <p>
+    <b>Teams:</b>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Ranking</th>
+          <th>Name</th>
+          <th>Rating</th>      
+        </tr>
+      </thead>
+      <tbody>
+        <%@teams.order('rating desc').each_with_index do |team, i|%>
+        <tr>
+          <td><%=i + 1%></td>
+          <td><%=link_to team.name, team_path(team)%> </td>
+          <td><%=team.rating(@league).round%></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+    </p>
+  </div>
+</div>
+  <div class="span6">
+    <p>
+    <b>Recent Games</b>
+    <br>
+      <table>
+      <thead>
+          <tr>
+	      <th>Played On </th>
+              <th>Winner</th>
+	      <th>Loser</th>
+          </tr>
+      </thead>
+      <tbody>
+        <%@league.matches.last(10).reverse.compact.each do |m| %>	
+        <tr>
+	  <%unless m.nil? %>
+	    <td></td>
+            <td><%=m.winner.name%></td>
+            <td><%=m.loser.name%></td>
+	  <%end%>
+        </tr>
+        <%end%>
+      </tbody>
+      </table>
+    </p>
+  </div>
+</div>
 
-<p>
-<b>Recent Matches Played:</b> <br>
-<table>
-  <thead>
-	<tr>
-	   <th>Winner</th>
-	   <th>Loser</th>
-	</tr>
-  </thead>
-  <tbody>
-  <%@league.matches.last(10).reverse.each do |m| %>	
-    <tr>
-     <td><%=m.winner%></td>
-     <td><%=m.loser%></td>
-    </tr>
-  <%end%>
-  </tbody>
-</table>
-</p>
 
-<%= link_to 'New Game', starting_point_league_path(@league) %> |
-<%= link_to 'Add Teams To League', add_teams_league_path(@league) %> |
-<%= link_to 'Edit', edit_league_path(@league) %> |
+
+<br> 
+<%= link_to 'Add Teams To League', add_teams_league_path(@league), :class => "btn"%> 
+<%= link_to 'New Game', starting_point_league_path(@league), :class => "btn btn-primary"%> 
+
+<br><br><%= link_to 'Edit', edit_league_path(@league) %> |
 <%= link_to 'Back', leagues_path %>

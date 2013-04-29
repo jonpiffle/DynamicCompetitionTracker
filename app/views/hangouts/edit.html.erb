@@ -1,8 +1,8 @@
 <h1>Editing hangout</h1>
 
 <p>
-<b>Teams:</b>
-<table>
+<b><%= @league.structured  ? "Teams" : "Players" %></b>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -18,8 +18,31 @@
 </table>
 </p><br>
 
+<%unless @matches.blank?%>
+<p>
+<b>Matches Played:</b>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Winner</th>
+      <th>Loser</th>
+    </tr>
+  </thead>
+  <tbody>
+          <%@matches.each do |m|%>
+          <tr>
+            <td><%=m.winner.name%></td>
+            <td><%=m.loser.name%></td>
+          </tr>
+          <%end%>
+  </tbody>
+</table>
+</p><br>  
+<%end%>
+
 <%= render 'form' %>
 
-<%= link_to 'New Game', starting_point_league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
-<%= link_to 'Show', league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
+<%= link_to 'New Game', starting_point_league_hangout_path(:league_id => @league.id, :id => @hangout.id), :class => "btn btn-primary" %>
+
+<br><br><%= link_to 'Show', league_hangout_path(:league_id => @league.id, :id => @hangout.id) %> |
 <%= link_to 'Back', league_hangouts_path(:league_id => @league.id) %>

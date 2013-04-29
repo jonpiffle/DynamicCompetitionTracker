@@ -5,7 +5,7 @@ class Score < ActiveRecord::Base
   belongs_to :score_type
 
   def z_score
-  	siblings.collect(&:score_value).z_score(score_value) unless score_value.blank?
+  	siblings.collect(&:score_value).z_score(score_value) * score_type.multiplier unless score_value.blank?
   end
 
   def siblings

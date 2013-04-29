@@ -14,7 +14,7 @@
 
 <p>
 <b>Games Played:</b>
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Winner</th>
@@ -32,5 +32,5 @@
 </table>
 </p><br>
 
-  <%= link_to "New Game", new_game_set_game_path(:game_set_id => @game_set.id) %>
+  <%= link_to "New Game", new_game_set_game_path(:game_set_id => @game_set.id), :class => "btn btn-primary" %>
 <% end %>

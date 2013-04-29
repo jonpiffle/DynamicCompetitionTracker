@@ -8,7 +8,7 @@ class GameSet < ActiveRecord::Base
   belongs_to :winner, :class_name => "Team"
 
   def set_winner
-  	if games.count > (league.games_per_set/2)
+  	if Hash[*games.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}[1] > (league.games_per_set/2)
   		winner = Hash[*games.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}.first
   		loser = Hash[*games.group_by(&:loser).map {|k,v| [k, v.length]}.flatten!].max_by{|k,v| v}.first
 			self.update_attributes(:winner_id => winner.id, :loser_id => loser.id)

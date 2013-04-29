@@ -16,27 +16,6 @@
     <%= f.autocomplete_field :player_names, autocomplete_player_name_league_hangouts_path, 'data-delimiter' => ', ', :multiple => false %>
   </div>
 
-<p>
-<b>Matches Played:</b>
-<table>
-  <thead>
-    <tr>
-      <th>Winner</th>
-      <th>Loser</th>
-    </tr>
-  </thead>
-  <tbody>
-	<%unless @matches.nil?%>
-	        <%@matches.each do |m|%>
-	        <tr>
-        	  <td><%=m.winner%></td>
-      		  <td><%=m.loser%></td>
-        	</tr>
-		<%end%>
-      <%end%>
-  </tbody>
-</table>
-</p><br>  
 
 
   <div class="actions">

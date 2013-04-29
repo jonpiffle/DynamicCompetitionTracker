@@ -52,7 +52,7 @@ class HangoutsController < ApplicationController
     @hangout = Hangout.find(params[:id])
     @league = @hangout.league
     @teams = @hangout.teams
-    @matches = @hangout.matches
+    @matches = @hangout.matches.finished
   end
 
   # POST /hangouts
@@ -61,8 +61,8 @@ class HangoutsController < ApplicationController
     @league = League.find(params[:league_id])
     @hangout = @league.hangouts.build(params[:hangout])
 
-    @hangout.teams_names.split(", ").each do |p|
-      @hangout.teams << Team.find_by_name(p)
+    @hangout.player_names.split(", ").each do |p|
+      @hangout.teams << Player.find_by_username(p.scan(/\((.*?)\)/)).solo
     end
 
     respond_to do |format|
@@ -82,8 +82,8 @@ class HangoutsController < ApplicationController
     @hangout = Hangout.find(params[:id])
     @league = @hangout.league
 
-    params[:hangout][:teams_names].split(", ").each do |p|
-      @hangout.teams << Team.find_by_name(p)
+    params[:hangout][:player_names].split(", ").each do |p|
+      @hangout.teams << Player.find_by_username(p.scan(/\((.*?)\)/)).solo
     end
 
     respond_to do |format|

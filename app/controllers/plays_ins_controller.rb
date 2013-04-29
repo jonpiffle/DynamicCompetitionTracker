@@ -1,4 +1,6 @@
 class PlaysInsController < ApplicationController
+   autocomplete :player, :name, :display_value => :name_username, :extra_data => [:username]
+
   # GET /plays_ins
   # GET /plays_ins.json
   def index
