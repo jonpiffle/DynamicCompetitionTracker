@@ -15,9 +15,14 @@ class Game < ActiveRecord::Base
   after_create :update_teams_ratings
 
   def update_teams_ratings
-  	plays_ins.each do |p|
-  		p.update_team_rating
-  	end
+    p1 = plays_ins.first
+    p2 = plays_ins.last
+
+    p1_new = p1.team.rating(league)+p1.delta_rating
+    p2_new = p2.team.rating(league)+p2.delta_rating
+
+    p1.update_team_rating(p1_new)
+    p2.update_team_rating(p2_new)
   end
 
  def winner

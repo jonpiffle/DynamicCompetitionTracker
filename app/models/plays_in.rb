@@ -36,8 +36,8 @@ class PlaysIn < ActiveRecord::Base
     scores.collect(&:z_score).compact.size == 0 ? 0 : 5*scores.collect(&:z_score).compact.avg 
   end
 
-  def update_team_rating
+  def update_team_rating(new_rating)
   	r = team.registration(league)
-  	r.update_attributes(:rating => (r.rating + delta_rating))
+  	r.update_attributes(:rating => new_rating)
   end
 end
