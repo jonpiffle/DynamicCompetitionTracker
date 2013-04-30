@@ -11,6 +11,8 @@
         <tr>
           <th>Ranking</th>
           <th>Name</th>
+          <th>Wins</th>
+          <th>Losses</th>
           <th>Rating</th>      
         </tr>
       </thead>
@@ -19,6 +21,8 @@
         <tr>
           <td><%=i + 1%></td>
           <td><%=link_to team.name, team_path(team)%> </td>
+          <td><%=team.wins(@league)%></td>
+          <td><%=team.losses(@league)%></td>
           <td><%=team.rating(@league).round(2)%></td>
         </tr>
         <%end%>
@@ -27,13 +31,16 @@
     </p>
   </div>
   <div class="span6">
+    <%unless @above_average_teams.blank?%>
      <p>
-    <b>Above Average Teams</b>
+    <b>Above Average Teams (In Terms of Wins)</b>
     <table class="table">
       <thead>
         <tr>
           <th>Ranking</th>
           <th>Name</th>
+          <th>Wins</th>
+          <th>Losses</th>
           <th>Rating</th>      
         </tr>
       </thead>
@@ -42,16 +49,76 @@
         <tr>
           <td><%=i + 1%></td>
           <td><%=link_to team.name, team_path(team)%> </td>
+          <td><%=team.wins(@league)%></td>
+          <td><%=team.losses(@league)%></td>
           <td><%=team.rating(@league).round(2)%></td>
         </tr>
         <%end%>
       </tbody>
     </table>
     </p>
+    <%end%>
+    <%unless @league.structured%>
+    <%unless @slackers.blank?%>
+      <p>
+      <b>Slackers</b>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ranking</th>
+            <th>Name</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Rating</th>      
+          </tr>
+        </thead>
+        <tbody>
+          <%@slackers.each_with_index do |team, i|%>
+          <tr>
+            <td><%=i + 1%></td>
+            <td><%=link_to team.name, team_path(team)%> </td>
+            <td><%=team.wins(@league)%></td>
+            <td><%=team.losses(@league)%></td>
+            <td><%=team.rating(@league).round(2) unless team.registration(@league).blank?%></td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+      </p>
+      <%end%>
+      <%unless @dedicated_members.blank?%>
+      <p>
+      <b>Dedicated Members</b>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ranking</th>
+            <th>Name</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Rating</th>      
+          </tr>
+        </thead>
+        <tbody>
+          <%@dedicated_members.each_with_index do |team, i|%>
+          <tr>
+            <td><%=i + 1%></td>
+            <td><%=link_to team.name, team_path(team)%> </td>
+            <td><%=team.wins(@league)%></td>
+            <td><%=team.losses(@league)%></td>
+            <td><%=team.rating(@league).round(2) unless team.registration(@league).blank?%></td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+      </p>
+     <%end%>
+    <%end%>
   </div>
 </div>
 <div class="row">
   <div class="span6">
+    <%unless @league.matches.recent.blank?%>
     <p>
     <b>Recent Games</b>
     <br>
@@ -76,6 +143,7 @@
       </tbody>
       </table>
     </p>
+    <%end%>
     </div>
   </div>
     <br> 

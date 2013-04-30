@@ -41,4 +41,13 @@ class Team < ActiveRecord::Base
   def expected_score(opponent, league)
   	1.0 / (1.0 + 10.0**((opponent.rating(league) - self.rating(league))/400.0))
   end
+
+  def wins(league)
+    league.matches.where(:winner_id => self.id).count
+  end
+
+  def losses(league)
+    league.matches.where(:loser_id => self.id).count
+  end
+
 end

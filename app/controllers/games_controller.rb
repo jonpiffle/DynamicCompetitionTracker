@@ -80,6 +80,7 @@ class GamesController < ApplicationController
           t = Team.find_by_name(team_name)
           pi.team_id = t.id
           t.registrations.create(:league_id => @league.id) if t.registration(@league).nil?
+          @hangout.teams << t
         else
           t = Team.create(:name => team_name)
           pi.player_names.reject(&:blank?).sort.each do |p|
@@ -87,6 +88,7 @@ class GamesController < ApplicationController
           end
           pi.team_id = t.id
           t.registrations.create(:league_id => @league.id)
+          @hangout.teams << t
         end
       end
     end

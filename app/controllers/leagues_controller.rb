@@ -32,6 +32,8 @@ class LeaguesController < ApplicationController
     @league = League.find(params[:id])
     @teams = @league.teams
     @above_average_teams = @league.above_average_teams
+    @slackers = @league.slackers unless @league.structured
+    @dedicated_members = @league.dedicated_members unless @league.structured
 
     respond_to do |format|
       format.html # show.html.erb

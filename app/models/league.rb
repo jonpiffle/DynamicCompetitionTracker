@@ -36,6 +36,29 @@ class League < ActiveRecord::Base
                     group by winner_id, t.id) as r1)")
   end
 
+  def slackers
+    Team.find_by_sql(
+      "SELECT t.id, t.name
+      from teams t, registrations r, leagues l
+      where r.team_id = t.id and r.league_id = l.id and l.id = #{self.id}
+      and not exists (select *
+                  from hangouts h, hangouts_teams ht 
+                  where h.league_id = l.id and ht.hangout_id = h.id and ht.team_id = t.id)")
+  end
+
+  def dedicated_members
+    Team.find_by_sql(
+      "SELECT t.id, t.name
+        from teams t, registrations r, leagues l
+        where r.team_id = t.id and r.league_id = l.id and l.id = #{self.id}
+        and not exists (select *
+                        from hangouts h
+                        where h.league_id = l.id and not exists 
+                          (select *
+                            from hangouts_teams ht
+                            where ht.hangout_id = h.id and ht.team_id = t.id))")
+  end
+
   def structured
   	league_type == "Structured"
   end
