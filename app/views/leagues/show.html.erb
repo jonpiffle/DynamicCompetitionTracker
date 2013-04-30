@@ -19,22 +19,47 @@
         <tr>
           <td><%=i + 1%></td>
           <td><%=link_to team.name, team_path(team)%> </td>
-          <td><%=team.rating(@league)%></td>
+          <td><%=team.rating(@league).round%></td>
         </tr>
         <%end%>
       </tbody>
     </table>
     </p>
   </div>
+</div>
   <div class="span6">
+    <p>
     <b>Recent Games</b>
-    <!-- RECENT MATCHES GO HERE-->
+    <br>
+      <table>
+      <thead>
+          <tr>
+	      <th>Played On </th>
+              <th>Winner</th>
+	      <th>Loser</th>
+          </tr>
+      </thead>
+      <tbody>
+        <%@league.matches.recent.each do |m| %>	
+        <tr>
+	    <td><%=m.created_at.to_date unless (m.winner.nil? || m.loser.nil?)%></td>
+            <td><%=m.winner.name unless m.winner.nil?%></td>
+            <td><%=m.loser.name unless m.loser.nil?%></td>
+        </tr>
+        <%end%>
+      </tbody>
+      </table>
+    </p>
+    <br> 
+	<%= link_to 'Add Teams To League', add_teams_league_path(@league), :class => "btn"%> 
+	<%= link_to 'New Game', starting_point_league_path(@league), :class => "btn btn-primary"%> 
+	<br><br>
+	<%= link_to 'Edit', edit_league_path(@league) %> |
+	<%= link_to 'Back', leagues_path %>
   </div>
 </div>
 
-<br> 
-<%= link_to 'Add Teams To League', add_teams_league_path(@league), :class => "btn"%> 
-<%= link_to 'New Game', starting_point_league_path(@league), :class => "btn btn-primary"%> 
 
-<br><br><%= link_to 'Edit', edit_league_path(@league) %> |
-<%= link_to 'Back', leagues_path %>
+
+
+
