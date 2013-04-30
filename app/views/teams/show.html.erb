@@ -3,6 +3,11 @@
 <h3>Team Name: <%= @team.name %></h3>
 
 <p>
+<b>Rival: </b><%=@team.rival ? @team.rival.name : "None" %><br>
+<b>Punching Bag: </b><%=@team.punching_bag ? @team.punching_bag.name : "None" %>
+</p><br>
+
+<p>
 <b>Players:</b>
 <table class="table">
 	<thead>

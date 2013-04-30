@@ -31,6 +31,7 @@ class LeaguesController < ApplicationController
   def show
     @league = League.find(params[:id])
     @teams = @league.teams
+    @above_average_teams = @league.above_average_teams
 
     respond_to do |format|
       format.html # show.html.erb

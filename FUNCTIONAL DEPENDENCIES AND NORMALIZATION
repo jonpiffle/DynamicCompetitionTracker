@@ -1,0 +1,71 @@
+FUNCTIONAL DEPENDENCIES AND NORMALIZATION
+
+competitions(id, name)
+	F = {id -> name, name -> id}
+	id and name are both keys
+	therefore, in BCNF
+
+game_sets(id, winner_id, loser_id, match_id)
+	F = {id -> winner_id, loser_id, match_id}
+	id is a key
+	therefore, in BCNF
+
+games(id, game_set_id)
+	F = {id -> game_set_id}
+	id is a key
+	therefore, in BCNF
+
+hangouts(id, league_id)
+	F = {id -> league_id}
+	id is a key
+	therefore, in BCNF
+
+hangouts_teams(hangout_id, team_id)
+	F = {}
+	(hangout_id, team_id) is a key
+	therfore, in BCNF
+
+leagues(id, name, league_type, games_per_set, sets_per_match, competition_id)
+	F = {id -> name, league_type, games_per_set, sets_per_match, competition_id, name -> id}
+	id and name are both keys
+	therefore, in BCNF
+
+matches(id, winner_id, loser_id, hangout_id)
+	F = {id -> winner_id, loser_id, hangout_id}
+	id is a key
+	therefore, in BCNF
+
+players(id, name, username, solo_id)
+	F = {id -> name, username, solo_id, username -> id}
+	id and username are both keys
+	therefore, in BCNF
+
+players_teams(team_id, player_id)
+	F = {}
+	(team_id, player_id) is key
+	therefore, in BCNF
+
+plays_ins(id, game_id, team_id, won)
+	F = {id -> game_id, team_id, won}
+	id is a key
+	therefore, in BCNF
+
+registrations(id, league_id, team_id, rating)
+	F = {id -> league_id, team_id, rating, (league_id, team_id) -> id}
+	id and (league_id, team_id) are keys
+	therefore, in BCNF
+
+score_types(id, competition_id, name, mandatory, primary, high_scored)
+	F = {id -> competition_id, name, mandatory, primary, high_scored}
+	id is a key
+	therefore, in BCNF
+
+scores(id, score_type_id, score_value, plays_in_id)
+	F = {id -> score_type_id, score_value, plays_in_id}
+	id is a key
+	therefore, in BCNF
+
+teams(id, name)
+	F = {id -> name, name -> id}
+	id and name are keys
+	therefore, in BCNF

@@ -1,0 +1,101 @@
+PROGRAMMERS MANUAL
+
+Competition Class
+	maps to the competition table
+	has getter and setter methods for: name
+	has relationship methods for: leagues, score_types
+
+Game Class
+	maps to the games table
+	has relationship methods for: game_set, match, hangout, league, plays_ins, teams, scores, winner, loser
+	functions:
+		update_teams_ratings - updates the ratings of both teams after a game has been played, using the elo algorithms
+
+
+GameSet Class
+	maps to the games_sets table
+	has getter and setter methods for: winner_id, loser_id
+	has relationship methods for: games, match, hangout, league, winner, loser
+	functions:
+		set_winner - checks if the number of games won by a team exceeds the number of games won necessary to win a game_set in this league. if this threshold has been crossed, set the winner and loser id's for the game_set
+
+Hangout Class
+	maps to the hangouts table
+	has relationship methods for: leagues, teams, matches
+
+League Class 
+	maps to the leagues table
+	has getter and setter methods for: games_per_set, name, sets_per_match, league_type
+	has relationship methods for: competition, score_types, registrations, teams, hangouts, matches, game_sets, games
+	functions:
+		structured - returns true if the league is structured, false if the league is unstructured
+		ratings - returns the ratings of all of the teams in the league
+
+Match Class
+	maps to the matches table
+	has gettter and setter methods for: winner_id, loser_id
+	has relationship functions for: game_sets, games, hangout, league, loser, winner
+	functions:
+		set_winner - checks if the number of game_sets won by a team exceeds the number of game_sets won necessary to win a match in this league. if this threshold has been crossed, set the winner and loser id's for the match
+		in_progress - checks if games have been played in this match, but a winner has not yet been decided
+
+Player Class
+	maps to the plays table
+	has getter and setter methods for: name, username, solo_id
+	has relationship methods for: teams, solo
+	functions:
+		create_solo - creates a new team with only this player as a member
+		name_username - returns a string in the form "name(username)"
+
+
+PlaysIn Class
+	maps to the plays_ins table
+	has getter and setter methods for: won
+	has relationship methods for: game, game_set, match, hangout, league, team, scores
+	functions:
+		opponent - finds the opponent of the team that this plays_in references for the game this plays_in references
+		build_scores - creates a new score for each score_type associated with the competition that this league plays games of
+		actual_score - for use in elo. returns 1 if this team won this game and 0 if this team lost this game
+		delta rating - for use in elo. calculates how much this team's rating should change based on the result of this game using the elo algorithm and our calculated bonus
+		bonus - for use in elo. calculates the mean of the z-scores of every score in the associated game
+		update_team_rating(new_rating) - updates this team's rating to the new_rating passed in as a parameter
+
+Registration Class
+	maps to the registrations table
+	has getter and setter methods for: rating
+	has relationship methods for: team, league
+	functions:
+		set default rating - sets the default rating to 1200
+
+Score Class
+	maps to the scores table
+	has getter and setter methods for: score_value 
+	has relationship methods for: plays_in, score_type
+	functions:
+		z_score - calculates the z-score for this score_value with respect to all scores of the same score_type
+		siblings - returns all scores of the same score_type
+
+ScoreType Class
+	maps to the score_types table
+	has getter and setter methods for: name, mandatory, primary, high_scored
+	has relationship methods for: competition, scores
+	functions:
+		multiplier - for use in elo bonus. returns 1 if high scored, returns -1 if low scored
+
+Statistics Module
+	patches the Array class to add the following methods:
+		avg - takes the mean of the numerical elements in an array
+		std_dev - finds the standard deviation of the numerical elements in an array
+		z_score(score) - finds the z-score of a given score with respect to the numerical elements of an array
+	patches the BigDecimal class to add the following methods:
+		squared - returns the number squared
+		sqrt - returns the square root of the number
+
+Team Class
+	maps to the teams table
+	has getter and setter methods for: name
+	has relationship methods for: players, registrations, leagues, hangouts, plays_ins, games, scores
+	functions:
+		rating(league) - returns the teams rating in a given league
+		registration(league) - returns the teams registration in a given league
+		expected_score(opponent, league) - for use in elo. gives the expected probability that this team beats an opposing team in a game in a given league

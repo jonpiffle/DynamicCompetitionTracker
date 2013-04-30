@@ -1,4 +1,6 @@
 Eecs341::Application.routes.draw do
+  root :to => 'leagues#index'
+
 
   resources :teams do
     get :autocomplete_player_name, :on => :collection

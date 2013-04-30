@@ -17,6 +17,25 @@ class League < ActiveRecord::Base
 
   attr_accessor :teams_names
   
+  def above_average_teams
+    Team.find_by_sql(
+      "select t.id, t.name
+      from teams t, (select count(m.winner_id) as cnt, m.winner_id
+              from matches m, teams t1, hangouts h
+              where m.winner_id=t1.id and m.hangout_id = h.id and h.league_id = #{self.id}
+              group by m.winner_id) as r
+      where t.id=r.winner_id 
+    and r.cnt > (select avg(r1.cnt)
+                 from (select count(winner_id) as cnt
+                       from teams t, registrations r
+                       left outer join (select m.winner_id
+                                       from matches m, teams t1, hangouts h
+                                       where m.winner_id=t1.id and m.hangout_id = h.id and h.league_id = #{self.id})
+                    on t.id = winner_id
+                    where t.id = r.team_id and r.league_id = #{self.id}
+                    group by winner_id, t.id) as r1)")
+  end
+
   def structured
   	league_type == "Structured"
   end

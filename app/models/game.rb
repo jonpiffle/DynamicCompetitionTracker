@@ -16,6 +16,7 @@ class Game < ActiveRecord::Base
 
  # validate :only_one_winner
 
+=begin
   def only_one_winner
     Hash[*plays_ins.group_by(&:won).map {|k,v| [k, v.length]}.flatten!].values.each do |v|
       if v != 1
@@ -23,6 +24,7 @@ class Game < ActiveRecord::Base
       end
     end
   end
+=end
 
   def update_teams_ratings
     p1 = plays_ins.first
@@ -41,9 +43,5 @@ class Game < ActiveRecord::Base
  
  def loser
 	losers.first
- end
-
- def check_only_one
-    
  end
 end

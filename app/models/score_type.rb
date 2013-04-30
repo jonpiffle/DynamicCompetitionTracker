@@ -3,7 +3,6 @@ class ScoreType < ActiveRecord::Base
   belongs_to :competition
   has_many :scores
 
-
   def multiplier
   	high_scored ? 1 : -1
   end
