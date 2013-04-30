@@ -31,6 +31,7 @@ class GamesController < ApplicationController
     @hangout = @match.hangout
     @league = @match.league
     @teams = @league.structured ? @league.teams : @hangout.teams
+    @game.team_one_winner ||= true
     
     @p1 = @game.plays_ins.build
     @p2 = @game.plays_ins.build
@@ -70,17 +71,16 @@ class GamesController < ApplicationController
     @hangout = @match.hangout
     @league = @hangout.league
 
+
     if !@league.structured && !@match.in_progress
       @game.plays_ins.each do |pi|
         team_name = pi.player_names.reject(&:blank?).sort.join(" & ")
 
         if Team.find_by_name(team_name).present?
-          puts 'a'
           t = Team.find_by_name(team_name)
           pi.team_id = t.id
           t.registrations.create(:league_id => @league.id) if t.registration(@league).nil?
         else
-          puts 'b'
           t = Team.create(:name => team_name)
           pi.player_names.reject(&:blank?).sort.each do |p|
             t.players << Player.find_by_username(p.scan(/\((.*?)\)/))
@@ -90,7 +90,6 @@ class GamesController < ApplicationController
         end
       end
     end
-
 
     respond_to do |format|
       if @game.save

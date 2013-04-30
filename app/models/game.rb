@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  attr_accessible :game_set_id, :plays_ins_attributes
+  attr_accessible :game_set_id, :plays_ins_attributes, :team_one_winner
   belongs_to :game_set
   has_one :match, :through => :game_set
   has_one :hangout, :through => :match
@@ -11,8 +11,18 @@ class Game < ActiveRecord::Base
 	has_many :losers, :through => :plays_ins, :conditions => {:plays_ins => {:won => false}}, :source => :team
 
   accepts_nested_attributes_for :plays_ins
-
   after_create :update_teams_ratings
+  attr_accessor :team_one_winner
+
+ # validate :only_one_winner
+
+  def only_one_winner
+    Hash[*plays_ins.group_by(&:won).map {|k,v| [k, v.length]}.flatten!].values.each do |v|
+      if v != 1
+        errors.add(:plays_ins, "There needs to be exactly one winner.")
+      end
+    end
+  end
 
   def update_teams_ratings
     p1 = plays_ins.first
