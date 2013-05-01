@@ -22,7 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'railroad'
+gem 'railroady'
 
 gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'

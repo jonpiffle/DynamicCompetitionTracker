@@ -31,3 +31,7 @@
 			Math.sqrt(self)
 		end
 	end
+
+
+class Statistics
+end
