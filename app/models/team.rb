@@ -18,7 +18,8 @@ class Team < ActiveRecord::Base
        FROM (SELECT T.id, T.name, count(*) as cnt \
        FROM teams T, matches M \
        WHERE M.winner_id = T.id AND M.loser_id = #{self.id} \
-       GROUP BY T.id, T.name) as wins").first
+       GROUP BY T.id, T.name) as wins \
+       GROUP BY wins.id, wins.name").first
   end
 
   def punching_bag
@@ -27,7 +28,8 @@ class Team < ActiveRecord::Base
       FROM (SELECT T.id, T.name, count(*) as cnt \
       FROM teams T, matches M \
       WHERE M.winner_id = #{self.id} AND M.loser_id = T.id \ 
-      GROUP BY T.id ,T.name) as wins").first
+      GROUP BY T.id ,T.name) as wins \
+      GROUP BY wins.id, wins.name").first
   end
 
   def rating(league)
