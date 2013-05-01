@@ -1,6 +1,6 @@
-class CreateHangouts < ActiveRecord::Migration
+class CreateSessions < ActiveRecord::Migration
   def change
-    create_table :hangouts do |t|
+    create_table :sessions do |t|
       t.integer :league_id
 
       t.timestamps

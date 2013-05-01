@@ -1,5 +1,5 @@
-class AddHangoutIdToMatch < ActiveRecord::Migration
+class AddSessionIdToMatch < ActiveRecord::Migration
   def change
-  	add_column :matches, :hangout_id, :integer
+  	add_column :matches, :session_id, :integer
   end
 end
