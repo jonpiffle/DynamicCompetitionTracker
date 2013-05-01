@@ -1,6 +1,6 @@
 class ChangeScoreValueToDouble < ActiveRecord::Migration
   def up
-  	change_column :scores, :score_value, :double
+  	change_column :scores, :score_value, :float
   end
 
   def down
