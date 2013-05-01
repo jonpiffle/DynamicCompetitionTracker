@@ -1,0 +1,60 @@
+USER MANUAL
+
+New Competitions:
+1. To start, click on the "Competitions" link on the header bar
+2. Click the "New Competitions" button
+3. Enter a new name and then click "Create Competition"
+4. For every way that this competition is scored:
+	a. Click "Add Score Type"
+	b. Enter the name of the score type
+	c. Check "primary" if this is the primary way in which this competition is scored
+	d. Check "mandatory" if a game cannot be played without this type of score being entered
+	e. Check if a high score or low score of this type is better
+
+New Players:
+1. After competitions have been added, you're going to need players in your league
+2. To start, click the "Players" link on the header bar
+3. Click the "New Player" button
+4. Enter a new "Name" and "Username" and click "Create Player"
+
+New Teams:
+1. If you are planning to make any team-based leagues, you must create new teams
+2. To start, click the "Teams" link on the header bar
+3. Click the "New Team" button
+4. Enter the name of the new team and add each player on the team, by search by player name
+
+New Leagues:
+1. To create a new league, start by clicking the "Leagues" link on the header bar
+2. Click the "New League" button
+3. Enter the name of the league
+4. If the games in the league are played by structured teams, select "Structured"
+5. If the games in the league are played as "pickup games" in which the teams are not predefined, select "Unstructured"
+6. Select the maximum number of games in a set
+7. Select the maximum number of sets in a match
+8. Select the type of competition played in games in this league
+9. Click the "Create League" button
+10. Add teams to the league
+	a. Click the "Add Teams to League" button
+	b. Search for each team that you want to add to the league
+	c. Click the "Update League" button
+
+Play New Games in a Structured League
+1. Click the "New Game" button
+2. Select the two teams that are playing against each other
+3. Check the "won" checkbox for the team that won
+4. Enter the score value for each score in the game
+5. Click the "Create Game" button
+6. If the set is not over, click the "New Game" button and repeat
+7. If the match is not over, click the "New Set" button and repeat
+
+Play New Games in an Unstructured League
+1. Click the "New Game" button
+2. Add each player who is present to the "hangout"
+3. Click the "Create Hangout" button
+4. Click the "New Game" button
+5. Select the players on each team
+6. Check the "won" checkbox for the team that won
+7. Enter the score value for each score in the game
+8. Click the "Create Game" button
+9. If the set is not over, click the "New Game" button and repeat
+10. If the match is not over, click the "New Set" button and repeat

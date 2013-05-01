@@ -24,7 +24,7 @@ WHERE T.id = R.team_id AND R.league_id = L.id AND R.rating =
 	SELECT wins.id, wins.name, MAX(wins.cnt)
 	FROM (SELECT T.id, T.name, count(*) as cnt
 	FROM teams T, matches M
-	WHERE M.winner_id = T.id AND M.loser_id = "current team id"
+	WHERE M.winner_id = T.id AND M.loser_id = 2
 	GROUP BY T.id ,T.name) as wins
 
 	#PUNCHING BAG
@@ -92,3 +92,24 @@ from players_teams pt, teams t, registrations r
 where pt.player_id = 2 and pt.team_id = t.id and t.id = r.team_id
 group by pt.player_id
 
+#SLACKERS
+SELECT t.id, t.name
+from teams t, registrations r, leagues l
+where r.team_id = t.id and r.league_id = l.id and l.id = 11
+and not exists (select *
+								from hangouts h, hangouts_teams ht 
+								where h.league_id = l.id and ht.hangout_id = h.id and ht.team_id = t.id)
+
+#DEDICATED MEMBERS
+SELECT t.id, t.name
+from teams t, registrations r, leagues l
+where r.team_id = t.id and r.league_id = l.id and l.id = 11
+and not exists (select *
+								from hangouts h
+								where h.league_id = l.id and not exists 
+									(select *
+										from hangouts_teams ht
+										where ht.hangout_id = h.id and ht.team_id = t.id
+										))
+
+							
