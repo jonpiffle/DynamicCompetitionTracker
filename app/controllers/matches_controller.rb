@@ -46,6 +46,7 @@ class MatchesController < ApplicationController
   def edit
     @match = Match.find(params[:id])
     @game_sets = @match.game_sets
+    @wins_counts = @match.wins_counts
   end
 
   # POST /matches

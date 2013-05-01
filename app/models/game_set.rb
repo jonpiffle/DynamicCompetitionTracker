@@ -17,4 +17,24 @@ class GameSet < ActiveRecord::Base
 		false
   	end
   end
+
+  def wins_counts
+    teams = games.first.teams
+    team1 = teams.first
+    team2 = teams.last
+
+    wins = Hash[*games.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!]
+
+    team1_wins = wins[team1] || 0
+    team2_wins = wins[team2] || 0
+
+    data = []
+
+    data << team1
+    data << team1_wins
+    data << team2
+    data << team2_wins
+    data
+  end
+
 end

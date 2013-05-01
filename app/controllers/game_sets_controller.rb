@@ -40,6 +40,7 @@ class GameSetsController < ApplicationController
     @game_set = GameSet.find(params[:id])
     @match = @game_set.match
     @games = @game_set.games
+    @wins_counts = @game_set.wins_counts
   end
 
   # POST /game_sets

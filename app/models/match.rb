@@ -25,4 +25,23 @@ class Match < ActiveRecord::Base
     winner_id.blank? && loser_id.blank? && games.count > 0
   end
 
+  def wins_counts
+    teams = game_sets.first.games.first.teams
+    team1 = teams.first
+    team2 = teams.last
+
+    wins = Hash[*game_sets.group_by(&:winner).map {|k,v| [k, v.length]}.flatten!]
+
+    team1_wins = wins[team1] || 0
+    team2_wins = wins[team2] || 0
+
+    data = []
+
+    data << team1
+    data << team1_wins
+    data << team2
+    data << team2_wins
+    data
+  end
+
  end
