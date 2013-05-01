@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.includes(:players).where("name NOT NULL")
+    @teams = Team.includes(:players)
 
     respond_to do |format|
       format.html # index.html.erb
