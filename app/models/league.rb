@@ -30,7 +30,7 @@ class League < ActiveRecord::Base
                        from teams t, registrations r
                        left outer join (select m.winner_id
                                        from matches m, teams t1, hangouts h
-                                       where m.winner_id=t1.id and m.hangout_id = h.id and h.league_id = #{self.id})
+                                       where m.winner_id=t1.id and m.hangout_id = h.id and h.league_id = #{self.id}) as all_teams
                     on t.id = winner_id
                     where t.id = r.team_id and r.league_id = #{self.id}
                     group by winner_id, t.id) as r1)")
